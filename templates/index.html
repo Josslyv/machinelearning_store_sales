@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predicción de Ventas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex flex-col items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Predicción de Ventas de Tienda 📊</h1>
+
+        <!-- ✅ Enlace a la tabla de variables -->
+        <div class="mb-4 text-center">
+            <a href="{{ url_for('variables') }}" target="_blank"
+               class="text-blue-600 hover:text-blue-800 font-medium underline">
+                📘 Ver guía de variables (¿qué poner en cada campo?)
+            </a>
+        </div>
+
+        <form method="POST" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div>
+                    <label for="day_of_week" class="block text-sm font-medium text-gray-700 mb-1">Día de la semana (0=Lun, 6=Dom)</label>
+                    <input type="number" id="day_of_week" name="day_of_week" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+
+                <div>
+                    <label for="is_weekend" class="block text-sm font-medium text-gray-700 mb-1">Es fin de semana (0/1)</label>
+                    <input type="number" id="is_weekend" name="is_weekend" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Mes (1-12)</label>
+                    <input type="number" id="month" name="month" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="store_area" class="block text-sm font-medium text-gray-700 mb-1">Área de la tienda (m²)</label>
+                    <input type="number" step="0.01" id="store_area" name="store_area" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="promotion" class="block text-sm font-medium text-gray-700 mb-1">Promoción (0/1)</label>
+                    <input type="number" id="promotion" name="promotion" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="holiday" class="block text-sm font-medium text-gray-700 mb-1">Festivo (0/1)</label>
+                    <input type="number" id="holiday" name="holiday" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="price_index" class="block text-sm font-medium text-gray-700 mb-1">Índice de precio</label>
+                    <input type="number" step="0.01" id="price_index" name="price_index" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="competitor_distance_km" class="block text-sm font-medium text-gray-700 mb-1">Distancia a competidor (km)</label>
+                    <input type="number" step="0.01" id="competitor_distance_km" name="competitor_distance_km" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="temperature_C" class="block text-sm font-medium text-gray-700 mb-1">Temperatura (°C)</label>
+                    <input type="number" step="0.1" id="temperature_C" name="temperature_C" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+                
+                <div>
+                    <label for="foot_traffic" class="block text-sm font-medium text-gray-700 mb-1">Tráfico peatonal</label>
+                    <input type="number" step="1" id="foot_traffic" name="foot_traffic" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+                </div>
+            </div>
+            
+            <div>
+                <label for="prev_day_sales" class="block text-sm font-medium text-gray-700 mb-1">Ventas del día anterior</label>
+                <input type="number" step="0.01" id="prev_day_sales" name="prev_day_sales" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out">
+            </div>
+
+            <button type="submit"
+                    class="w-full py-2 mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-[1.01]">
+                Predecir 🚀
+            </button>
+        </form>
+
+        {% if prediction %}
+        <div class="result mt-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-800 rounded-lg">
+            <p class="text-lg">
+                <strong class="font-bold">Predicción de ventas:</strong> <span class="ml-2">{{ prediction }}</span>
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
