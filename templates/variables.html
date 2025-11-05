@@ -4,17 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Variables — Predicción de Ventas</title>
-
-  <!-- Bootstrap CSS -->
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
 <div class="container py-5">
   <h1 class="mb-4 text-center">Variables para predecir ventas de una tienda</h1>
-
   <div class="table-responsive shadow-sm rounded">
     <table class="table table-hover table-bordered align-middle">
       <thead class="table-primary text-dark">
@@ -22,8 +16,8 @@
           <th>Variable</th>
           <th>Tipo</th>
           <th>Qué representa</th>
-          <th>Por qué afecta las ventas</th>
-          <th>Fuente típica</th>
+          <th>Ejemplo numérico</th>
+          <th>Explicación / Interpretación</th>
         </tr>
       </thead>
       <tbody>
@@ -31,99 +25,92 @@
           <td><code>day_of_week</code></td>
           <td>Entero (0–6)</td>
           <td>Día de la semana</td>
-          <td>El comportamiento cambia entre semana y fines de semana</td>
-          <td>Calendario</td>
+          <td>0 = Lunes, 6 = Domingo</td>
+          <td>Define comportamiento típico de compra según día</td>
         </tr>
         <tr>
           <td><code>is_weekend</code></td>
           <td>Binaria (0/1)</td>
-          <td>Indica si es fin de semana</td>
-          <td>Fin de semana suele haber más ventas</td>
-          <td>Derivada de <code>day_of_week</code></td>
+          <td>Fin de semana</td>
+          <td>0 = Día laboral, 1 = Sábado/Domingo</td>
+          <td>Los fines de semana suele haber más tráfico</td>
         </tr>
         <tr>
           <td><code>month</code></td>
           <td>Entero (1–12)</td>
           <td>Mes del año</td>
-          <td>Captura estacionalidad</td>
-          <td>Calendario</td>
+          <td>1 = Enero, 12 = Diciembre</td>
+          <td>Captura estacionalidad (ej. Navidad)</td>
         </tr>
         <tr>
           <td><code>store_area</code></td>
           <td>Numérica (m²)</td>
           <td>Tamaño de la tienda</td>
-          <td>Tiendas más grandes pueden vender más</td>
-          <td>Datos de tienda</td>
+          <td>50 a 500 m² (ej. 120)</td>
+          <td>Tiendas grandes suelen vender más</td>
         </tr>
         <tr>
           <td><code>promotion</code></td>
           <td>Binaria (0/1)</td>
-          <td>Si hay promoción activa</td>
-          <td>Promociones aumentan tráfico y compra</td>
-          <td>Marketing / ERP</td>
+          <td>Promoción activa</td>
+          <td>1 = Promo activa, 0 = Sin promo</td>
+          <td>Las promociones aumentan ventas y tráfico</td>
         </tr>
         <tr>
           <td><code>holiday</code></td>
           <td>Binaria (0/1)</td>
           <td>Día festivo</td>
-          <td>Pueden subir o bajar ventas</td>
-          <td>Calendario</td>
+          <td>1 = Festivo, 0 = Normal</td>
+          <td>Pueden subir o bajar ventas según el festivo</td>
         </tr>
         <tr>
           <td><code>price_index</code></td>
           <td>Numérica</td>
-          <td>Precio relativo al mercado</td>
-          <td>Precios altos bajan demanda y viceversa</td>
-          <td>Lista de precios / competencia</td>
+          <td>Precio relativo</td>
+          <td>1.0 = precio base, 1.10 = +10%, 0.90 = -10%</td>
+          <td>Si subes precio un 10%, pones 1.1; si bajas 10%, pones 0.9</td>
         </tr>
         <tr>
           <td><code>competitor_distance_km</code></td>
           <td>Numérica (km)</td>
-          <td>Distancia a competidor cercano</td>
-          <td>Competencia cerca reduce ventas</td>
-          <td>Mapas / análisis</td>
+          <td>Distancia a competidor</td>
+          <td>Ej. 0.5 km, 2.0 km</td>
+          <td>Mientras más lejos el competidor, más probables ventas</td>
         </tr>
         <tr>
           <td><code>temperature_C</code></td>
           <td>Numérica (°C)</td>
           <td>Temperatura diaria</td>
-          <td>Afecta tipo de consumo</td>
-          <td>API clima</td>
+          <td>Ej. 10°C, 25°C, 35°C</td>
+          <td>Clima influye en comportamiento (bebidas frías, etc.)</td>
         </tr>
         <tr>
           <td><code>foot_traffic</code></td>
           <td>Numérica</td>
-          <td>Tráfico peatonal</td>
-          <td>Más gente = más ventas</td>
-          <td>Sensores / cámaras</td>
+          <td>Personas cerca por día</td>
+          <td>Ej. 150, 500, 1200</td>
+          <td>Más tráfico = más ventas potenciales</td>
         </tr>
         <tr>
           <td><code>prev_day_sales</code></td>
           <td>Numérica ($)</td>
           <td>Ventas día anterior</td>
-          <td>Las ventas tienen inercia</td>
-          <td>POS</td>
+          <td>Ej. 2500, 8000</td>
+          <td>Las ventas tienen inercia (tiendas ocupadas siguen ocupadas)</td>
         </tr>
         <tr class="table-success">
           <td><code>sales</code></td>
           <td>Numérica ($) — Target</td>
           <td>Ventas reales</td>
-          <td>Variable objetivo</td>
-          <td>POS</td>
+          <td>Ej. 3500 pesos</td>
+          <td>Valor que queremos predecir</td>
         </tr>
       </tbody>
     </table>
   </div>
-
   <div class="text-center mt-4">
-  <a href="{{ url_for('index') }}" class="btn btn-primary">
-    ← Regresar al formulario de predicción
-  </a>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">← Regresar al formulario</a>
+  </div>
 </div>
-
-
-  <p class="text-muted small mt-2">Tabla para explicar variables comunes en modelos de predicción de ventas.</p>
-</div>
-
 </body>
 </html>
